@@ -1,7 +1,6 @@
 import tkinter as tk
 import Super_ad as ad
 import Vaisseau as v
-import Laser as l
 
 root = tk.Tk()
 root.title("Astrouillot Defender")
@@ -15,11 +14,9 @@ main_canvas.pack(fill="both", expand="yes")
 ad.Super_ad.canvas = main_canvas
 
 joueur = v.Vaisseau()
-pan = l.Laser(50)
 
 def tac():
     joueur.tic()
-    pan.tic()
 
     root.after(16, tac)
 tac()
