@@ -1,12 +1,19 @@
 from tkinter import Canvas
+from PIL import Image, ImageTk
 
 
 class Super_ad():
+    """
+    On charge toute nos image lors de la creation de la premiere initialisation de la super class
+    Tout les objet de notre jeu herite de cette super class
+    """
+    image_data_laser = Image.open("media/img/laser_fixe.png")
+    image_data_vaisseau = Image.open("media/img/vaisseau.png")
 
     canvas = None
 
-    def __init__(self):
-        pass
+    def __init__(self, canvas):
+        Super_ad.canvas = canvas
 
     """
     les deux fonctions suivantes permettent d'avoir la postion 

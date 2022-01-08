@@ -11,13 +11,17 @@ main_canvas = tk.Canvas(root, bg="black")
 main_canvas.pack(fill="both", expand="yes")
 
 #permet d'initialiser notre super class
-ad.Super_ad.canvas = main_canvas
+super_class = ad.Super_ad(main_canvas)
 
 joueur = v.Vaisseau()
 
 def tac():
+    """
+    Tac est une horloge globale, elle apelle la fonction tic de chaque objet 60 fois par seconde
+    """
     joueur.tic()
 
     root.after(16, tac)
 tac()
+
 root.mainloop()

@@ -20,10 +20,9 @@ class Vaisseau(ad.Super_ad):
 
         self.is_mooving = False
 
-        self.img_data = Image.open("media/img/vaisseau.png")
-        self.resize_img = self.img_data
-        self.imageV = ImageTk.PhotoImage(self.resize_img)
-        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = self.imageV)
+        self.img_data = ad.Super_ad.image_data_vaisseau
+        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "") #on definit l'image avec update dans resize
+        self.resize()
 
 
         ############################# Binding #############################
@@ -31,7 +30,7 @@ class Vaisseau(ad.Super_ad):
         ad.Super_ad.canvas.bind_all("<KeyPress>", self.key_down, add = "+")
         ad.Super_ad.canvas.bind_all("<KeyRelease>", self.key_up, add = "+")
 
-    def resize(self, e):
+    def resize(self, *e):
         """
         fonction qui s'appelle a chaque modification de la  taille du canvas
         """
