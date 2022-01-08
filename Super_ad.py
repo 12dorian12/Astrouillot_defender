@@ -18,4 +18,5 @@ class Super_ad():
         return int(Super_ad.canvas.winfo_height()*y/100)
 
     def update(self):
-        Super_ad.canvas.delete("all")
+        #Super_ad.canvas.delete("all")
+        a = 0
