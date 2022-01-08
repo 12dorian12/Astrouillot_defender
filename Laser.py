@@ -6,7 +6,13 @@ class Laser(ad.Super_ad):
     class qui cree des laser
     le laser test les colision avec le joueur ou les alien
     """
-    def __init__(self, x, vitesse, force):
+    def __init__(self, x, vitesse, force, enemie):
+        # on cree une liste d'enemie pour gerer la colision de la meme façon qu'il y ai un seul ou plusieur enemies
+        if type(enemie) == list:
+            self.list_enemie = enemie
+        else:
+            self.list_enemie = [enemie]
+
         self.anim = 0
         self.pox = x
         self.poy = 90
@@ -34,6 +40,19 @@ class Laser(ad.Super_ad):
 
     def move(self):
         self.poy += self.vitesse
+        self.colision()
+        if self.poy <= 0 :
+            self.delete()
+
+    def delete(self):
+        ad.Super_ad.canvas.delete(self.sprite)
+        ad.Super_ad.list_laser.remove(self)
+
+    def colision(self):
+        for enemie in self.list_enemie:
+            if self.distance_eclidienne(self.pox, self.poy, enemie.pox, enemie.poy) <= 5:
+                enemie.hit(self.force)
+                self.delete()
 
     def tic(self):
         self.move()

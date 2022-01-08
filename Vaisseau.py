@@ -1,26 +1,25 @@
 import Super_ad as ad
-import tkinter as tk
 from PIL import Image,ImageTk
 
 import Laser as l
 
 class Vaisseau(ad.Super_ad):
-    def __init__(self):
+    def __init__(self, list_alien):
+        self.list_alien = list_alien
+
         self.nb_vies = 3
         self.pox = 50
         self.poy = 94
         self.vitesse = 1
 
-        self.vitesse_tire = 1
+        self.vitesse_tire = 2
         self.temp_de_recharge = 500
         self.force = 1
         self.reload = True
 
-        self.lst_tir = []
-
         self.is_mooving = False
 
-        self.img_data = ad.Super_ad.image_data_vaisseau
+        self.image_data = ad.Super_ad.image_data_vaisseau
         self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "") #on definit l'image avec update dans resize
         self.resize()
 
@@ -34,7 +33,7 @@ class Vaisseau(ad.Super_ad):
         """
         fonction qui s'appelle a chaque modification de la  taille du canvas
         """
-        self.resize_img = self.img_data.resize((self.vw(10)+1, self.vw(10)+1), Image.ANTIALIAS)
+        self.resize_img = self.image_data.resize((self.vw(10)+1, self.vw(10)+1), Image.ANTIALIAS)
         self.imageV = ImageTk.PhotoImage(self.resize_img)
         self.update()
 
@@ -63,8 +62,11 @@ class Vaisseau(ad.Super_ad):
     def tire(self):
         if self.reload:
             self.reload = False
-            self.lst_tir.append(l.Laser(self.pox, -self.vitesse_tire, self.force))
+            ad.Super_ad.list_laser.append(l.Laser(self.pox, -self.vitesse_tire, self.force, self.list_alien))
             ad.Super_ad.canvas.after(self.temp_de_recharge, self.reloading)
+
+    def hit(self):
+        print("pan")
 
     def reloading(self):
         self.reload = True
@@ -79,8 +81,7 @@ class Vaisseau(ad.Super_ad):
             if self.pox > 97:
                 self.pox = 97
         self.update()
-        for tir in self.lst_tir : 
-            tir.tic()
+        
         
 
 
