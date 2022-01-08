@@ -1,6 +1,7 @@
 import tkinter as tk
 import Super_ad as ad
 import Vaisseau as v
+
 import Laser as l
 import Alien as a
 
@@ -29,6 +30,7 @@ def tac():
     pan.tic()
     for alien in lst_alien:
         alien.tic()
+
     root.after(16, tac)
 tac()
 
