@@ -6,9 +6,10 @@ from PIL import Image,ImageTk
 class Alien(ad.Super_ad):
     def __init__(self):
         self.nb_vies = 1
-        self.pox = 50
-        self.poy = 20
-        self.vitesse = 5
+        self.pox = 1
+        self.poy = 5
+        self.vitesse = 3
+        self.gap = 3
 
 
         self.img_data = Image.open("media/img/alien.png")
@@ -30,20 +31,18 @@ class Alien(ad.Super_ad):
         self.update()
 
     def update(self):
-        ad.Super_ad.update(self)
-        ad.Super_ad.canvas.itemconfig(self.sprite, image = self.imageA)
-        ad.Super_ad.canvas.coords(self.sprite, self.pox, self.poy)
+        ad.Super_ad.update(self, self.imageA, self.pox, self.poy)
         
         
     
     def move(self):
         self.pox +=  self.vitesse
-        if self.pox > self.vw(97):
+        if self.pox > 97:
             self.vitesse = -self.vitesse
-            self.poy += 20
-        if self.pox< self.vw(3):
+            self.poy += self.gap
+        if self.pox < 1:
             self.vitesse = -self.vitesse
-            self.poy +=20
+            self.poy += self.gap
 
         
     def tic(self):
