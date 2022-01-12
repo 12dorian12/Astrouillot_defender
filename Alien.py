@@ -1,10 +1,8 @@
 import Super_ad as ad
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 
 class Alien(ad.Super_ad):
-    def __init__(self, vaisseau, list_alien):
-        self.vaisseau = vaisseau
-        self.list_alien = list_alien
+    def __init__(self):
         self.nb_vies = 1
         self.pox = 1
         self.poy = 5
@@ -48,7 +46,7 @@ class Alien(ad.Super_ad):
 
     def delete(self):
         ad.Super_ad.canvas.delete(self.sprite)
-        self.list_alien.remove(self)
+        ad.Super_ad.list_alien.remove(self)
         
     def tic(self):
         self.move()

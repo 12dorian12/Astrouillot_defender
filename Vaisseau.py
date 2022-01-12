@@ -1,12 +1,10 @@
 import Super_ad as ad
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 
 import Laser as l
 
 class Vaisseau(ad.Super_ad):
-    def __init__(self, list_alien):
-        self.list_alien = list_alien
-
+    def __init__(self):
         self.nb_vies = 3
         self.pox = 50
         self.poy = 94
@@ -62,11 +60,11 @@ class Vaisseau(ad.Super_ad):
     def tire(self):
         if self.reload:
             self.reload = False
-            ad.Super_ad.list_laser.append(l.Laser(self.pox, -self.vitesse_tire, self.force, self.list_alien))
+            ad.Super_ad.list_laser.append(l.Laser(self.pox, -self.vitesse_tire, self.force, ad.Super_ad.list_alien))
             ad.Super_ad.canvas.after(self.temp_de_recharge, self.reloading)
 
     def hit(self):
-        print("pan")
+        print("ouille")
 
     def reloading(self):
         self.reload = True
