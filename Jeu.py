@@ -4,6 +4,7 @@ from PIL import Image
 import Super_ad as ad
 import Vaisseau as v
 import Alien as a
+import Ilots as i
 
 
 class Jeu():
@@ -31,6 +32,8 @@ class Jeu():
         #creation d'aliens
         self.make_alien(20, 300)
         self.tac()
+        #creation des blocs
+        ad.Super_ad.mur = i.Ilots()
 
 
 

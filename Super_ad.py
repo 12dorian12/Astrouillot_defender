@@ -13,11 +13,13 @@ class Super_ad():
     image_data_vaisseau = Image.open("media/img/vaisseau.png")
     image_data_alien = Image.open("media/img/alien.png")
     image_data_fond = Image.open("media/img/fond.jpg")
+    image_data_bloc = Image.open("media/img/pierre.jpg")
 
     canvas = None
     list_laser = []
     list_alien = []
     joueur = None
+    mur = None
 
     def __init__(self, window, w):
         #creation du canvas principal
