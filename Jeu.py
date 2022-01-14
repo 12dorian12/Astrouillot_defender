@@ -13,7 +13,7 @@ class Jeu():
         self.window = window
 
         #initialisation de Super_ad
-        self.heart = ad.Super_ad(self.window, 500)
+        self.heart = ad.Super_ad(self.window, 500,ad.Super_ad.image_data_fond1 )
 
 
 
@@ -37,7 +37,7 @@ class Jeu():
         #creation d'aliens
         self.make_alien(20, 300)
         #creation des blocs
-        self.make_wall(4, 10)
+        self.make_wall(4, 5)
 
         self.tac()
 
@@ -64,8 +64,8 @@ class Jeu():
                         alien.hit(laser.force)
                         laser.delete()
             if laser.vitesse > 0:
-                if self.distance_eclidienne(laser.pox, laser.poy, ad.Super_ad.list_joueur[0].pox, ad.Super_ad.list_joueur[0].poy) <= 5:
-                    ad.Super_ad.list_joueur[0].hit(laser.force)
+                if self.distance_eclidienne(laser.pox, laser.poy, ad.Super_ad.joueur.pox, ad.Super_ad.joueur.poy) <= 5:
+                    ad.Super_ad.joueur.hit(laser.force)
                     laser.delete()
 
 

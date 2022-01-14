@@ -48,16 +48,6 @@ class Laser(ad.Super_ad):
         ad.Super_ad.canvas.delete(self.sprite)
         ad.Super_ad.list_laser.remove(self)
 
-    """def colision(self):
-        for enemie in self.list_enemie:
-            if self.distance_eclidienne(self.pox, self.poy, enemie.pox, enemie.poy) <= 5:
-                enemie.hit(self.force)
-                self.delete()
-        for bloc in ad.Super_ad.list_bloc:
-            if self.distance_eclidienne(self.pox, self.poy, bloc.pox, bloc.poy) <= 5:
-                bloc.hit(self.force)
-                self.delete()"""
-
     def tic(self):
         self.move()
         self.update()

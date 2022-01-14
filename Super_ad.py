@@ -12,22 +12,25 @@ class Super_ad():
     image_data_laser = Image.open("media/img/laser_fixe.png")
     image_data_vaisseau = Image.open("media/img/vaisseau.png")
     image_data_alien = Image.open("media/img/alien.png")
-    image_data_fond = Image.open("media/img/niveau1.jpg")
+    image_data_fond1 = Image.open("media/img/niveau1.jpg")
+    image_data_fond2 = Image.open("media/img/niveau2.jpg")
+    image_data_fond3 = Image.open("media/img/niveau3.jpg")
     image_data_bloc = Image.open("media/img/pierre.jpg")
 
     canvas = None
+    joueur = None
     list_laser = []
     list_alien = []
     list_bloc = []
-    list_joueur = []
+    
     
 
-    def __init__(self, window, w):
+    def __init__(self, window, w, fond):
         #creation du canvas principal
         Super_ad.canvas = tk.Canvas(window, bg="black", width=int(w), height=int(w*(16/9)))
-        self.resize_bg = Super_ad.image_data_fond.resize((int(w*(16/9)**2), int(w*(16/9))), Image.ANTIALIAS)
+        self.resize_bg = fond.resize((int(w*(16/9)**2), int(w*(16/9))), Image.ANTIALIAS)
         self.bg = ImageTk.PhotoImage(self.resize_bg)
-        self.can_bg = Super_ad.canvas.create_image(-w/2, w/2, image = self.bg)
+        self.can_bg = Super_ad.canvas.create_image(-w/1.25,0, anchor= tk.NW, image = self.bg)
 
     def vw(self, x):
         #retourne la postion en px sur le canvas a partir d'un pourcentage sur la largeur
