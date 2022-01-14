@@ -40,7 +40,7 @@ image_fond = ImageTk.PhotoImage(img)
 frame_principale.grid_rowconfigure((0,1,2,3), weight=1)
 frame_principale.grid_columnconfigure((0, 2), weight=1, minsize=groot.winfo_height()/3)
 
-can = tk.Canvas(frame_principale, width=400, height=400)
+can = tk.Canvas(frame_principale, width = dimension[0], height = dimension[0]*9/16)
 can.create_image(0, 0, anchor=tk.NW, image=image_fond)
 can.grid(row=0, rowspan= 4, column= 0, columnspan= 3)
 
@@ -61,6 +61,11 @@ frame_niveau.grid_propagate(0)
 
 img = Image.open("media/img/fond.jpg")
 image = ImageTk.PhotoImage(img)
+
+can_niv = tk.Canvas(frame_niveau, width = dimension[0], height = dimension[0]*9/16)
+can_niv.create_image(0, 0, anchor=tk.NW, image=image_fond)
+can_niv.pack()
+
 
 frame_niveau.grid_columnconfigure((0), weight=1)
 frame_niveau.grid_rowconfigure((0,1,2), weight=1)

@@ -12,7 +12,7 @@ class Super_ad():
     image_data_laser = Image.open("media/img/laser_fixe.png")
     image_data_vaisseau = Image.open("media/img/vaisseau.png")
     image_data_alien = Image.open("media/img/alien.png")
-    image_data_fond = Image.open("media/img/fond.jpg")
+    image_data_fond = Image.open("media/img/niveau1.jpg")
     image_data_bloc = Image.open("media/img/pierre.jpg")
 
     canvas = None
