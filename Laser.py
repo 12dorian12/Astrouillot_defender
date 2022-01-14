@@ -8,7 +8,7 @@ class Laser(ad.Super_ad):
     le laser test les colision avec le joueur ou les alien
     """
     def __init__(self, x, vitesse, force, enemie):
-        # on cree une liste d'enemie pour gerer la colision de la meme façon qu'il y ai un seul ou plusieur enemies
+        # on cree une liste d'enemie pour gerer la colision de la meme facon qu'il y ai un seul ou plusieur enemies
         if type(enemie) == list:
             self.list_enemie = enemie
         else:

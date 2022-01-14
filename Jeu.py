@@ -23,7 +23,7 @@ class Jeu():
 
 
     def make_wall(self, nb, ec):
-        #permet de créer les murs
+        #permet de creer les murs
         for i in range(nb):
             il.Ilots().pox += ec
             self.window(ad.Super_ad.list_bloc.append(il.Ilots()))
