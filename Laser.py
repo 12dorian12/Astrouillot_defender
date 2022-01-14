@@ -14,7 +14,6 @@ class Laser(ad.Super_ad):
         else:
             self.list_enemie = [enemie]
 
-        self.anim = 0
         self.pox = x
         self.poy = 90
         self.size = 10
@@ -41,30 +40,24 @@ class Laser(ad.Super_ad):
 
     def move(self):
         self.poy += self.vitesse
-        self.colision()
+        """self.colision()"""
         if self.poy <= 0 :
             self.delete()
-            self
 
     def delete(self):
         ad.Super_ad.canvas.delete(self.sprite)
         ad.Super_ad.list_laser.remove(self)
 
-    def colision(self):
+    """def colision(self):
         for enemie in self.list_enemie:
             if self.distance_eclidienne(self.pox, self.poy, enemie.pox, enemie.poy) <= 5:
                 enemie.hit(self.force)
                 self.delete()
-                print(self.list_enemie)
-            if self.list_enemie == []:
-                print("OUI")
-                self.victory()
-
+        for bloc in ad.Super_ad.list_bloc:
+            if self.distance_eclidienne(self.pox, self.poy, bloc.pox, bloc.poy) <= 5:
+                bloc.hit(self.force)
+                self.delete()"""
 
     def tic(self):
         self.move()
         self.update()
-
-
-    def victory():
-        v.Vaisseau.delete()

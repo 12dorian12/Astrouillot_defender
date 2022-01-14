@@ -5,20 +5,15 @@ from PIL import Image,ImageTk
 import Laser as l
 
 class Ilots(ad.Super_ad):
-    def __init__(self):
+    def __init__(self, x):
         self.nb_vies = 1
-        self.pox = 10
+        self.pox = x
         self.poy = 80
-        self.nb = 2
-
-        self.lst_bloc= []
-
-        self.reload = True
 
         self.img_data = ad.Super_ad.image_data_bloc
         self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "") #on definit l'image avec update dans resize
+
         self.resize()
-        self.dessin()
 
 
         ############################# Binding #############################
@@ -38,33 +33,14 @@ class Ilots(ad.Super_ad):
 
 
     def hit(self, damage):
-        print("pan")
         self.nb_vies -= damage
         if self.nb_vies <= 0:
             self.delete()
 
     def delete(self):
         ad.Super_ad.canvas.delete(self.sprite)
-        
-        
-    
-    
-    
+        ad.Super_ad.list_bloc.remove(self)
 
-#lst_alien = []
-
-#nb_alien = 10
-#for i in range(nb_alien):
-    #root.after(i*300, lambda : lst_alien.append(a.Alien()))
-
-
-
-    def dessin(self):
-        
-        for i in range(self.nb):
-            self.pox += 20
-            self.lst_bloc.append(Ilots)
-            ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "")
 
            
 

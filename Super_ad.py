@@ -18,10 +18,9 @@ class Super_ad():
     canvas = None
     list_laser = []
     list_alien = []
-    joueur = None
-    mur = None
     list_bloc = []
-
+    list_joueur = []
+    
 
     def __init__(self, window, w):
         #creation du canvas principal

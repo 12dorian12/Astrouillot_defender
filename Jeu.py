@@ -1,3 +1,4 @@
+from operator import length_hint
 import tkinter as tk
 from PIL import Image
 
@@ -23,10 +24,9 @@ class Jeu():
 
 
     def make_wall(self, nb, ec):
-        #permet de creer les murs
+    #permet de creer les murs
         for i in range(nb):
-            il.Ilots().pox += ec
-            self.window(ad.Super_ad.list_bloc.append(il.Ilots()))
+            ad.Super_ad.list_bloc.append(il.Ilots(i*ec))
 
 
     def run(self):
@@ -36,13 +36,37 @@ class Jeu():
         ad.Super_ad.joueur = v.Vaisseau()
         #creation d'aliens
         self.make_alien(20, 300)
-        self.tac()
         #creation des blocs
-        ad.Super_ad.mur = il.Ilots()
-        #self.make_wall(3, 10)
+        self.make_wall(4, 10)
+
+        self.tac()
 
 
+    def end_game(self, victory):
+        if victory:
+            print("victoiiiire")
+        else:
+            print("tes nuuuul")
 
+    def distance_eclidienne(self, x1, y1, x2, y2):
+        #retourne la distance selon la norme 2
+        return ((x1-x2)**2 + (y1-y2)**2)**(1/2)
+
+    def colision(self):
+        for laser in ad.Super_ad.list_laser:
+            for bloc in ad.Super_ad.list_bloc:
+                if self.distance_eclidienne(laser.pox, laser.poy, bloc.pox, bloc.poy) <= 5:
+                    bloc.hit(laser.force)
+                    laser.delete()
+            if laser.vitesse < 0:
+                for alien in ad.Super_ad.list_alien:
+                    if self.distance_eclidienne(laser.pox, laser.poy, alien.pox, alien.poy) <= 5:
+                        alien.hit(laser.force)
+                        laser.delete()
+            if laser.vitesse > 0:
+                if self.distance_eclidienne(laser.pox, laser.poy, ad.Super_ad.list_joueur[0].pox, ad.Super_ad.list_joueur[0].poy) <= 5:
+                    ad.Super_ad.list_joueur[0].hit(laser.force)
+                    laser.delete()
 
 
     def tac(self):
@@ -56,3 +80,8 @@ class Jeu():
             tir.tic()
 
         self.window.after(26, self.tac)
+
+        self.colision()
+
+        if len(ad.Super_ad.list_alien) == 0:
+            self.end_game(True)

@@ -74,7 +74,6 @@ tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2)
 """
 ///////////////////////////////////////////Page jouer////////////////////////////////////////////
 """
-
 frame_jeu = tk.Frame(groot, width = dimension[0], height = dimension[0]*9/16)
 frame_jeu.grid_propagate(0)
 
