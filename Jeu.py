@@ -9,8 +9,9 @@ import Ilots as il
 
 
 class Jeu():
-    def __init__(self, window):
+    def __init__(self, window, ayer_finit):
         self.window = window
+        self.ayer_finit = ayer_finit
 
         #initialisation de Super_ad
         self.heart = ad.Super_ad(self.window, 500,ad.Super_ad.image_data_fond1 )
@@ -45,8 +46,17 @@ class Jeu():
     def end_game(self, victory):
         if victory:
             print("victoiiiire")
+            self.ayer_finit(True)
         else:
             print("tes nuuuul")
+            self.ayer_finit(False)
+        for i in ad.Super_ad.list_alien : 
+            i.delete()
+        for i in ad.Super_ad.list_bloc : 
+            i.delete()
+        for i in ad.Super_ad.list_laser : 
+            i.delete()
+
 
     def distance_eclidienne(self, x1, y1, x2, y2):
         #retourne la distance selon la norme 2

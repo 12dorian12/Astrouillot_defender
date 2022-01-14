@@ -16,6 +16,8 @@ def jouer():
     frame_principale.pack_forget()
     frame_niveau.pack()
 
+def fin_du_game(victory):
+    print("oooocccc")
 
 
 """
@@ -82,14 +84,13 @@ tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2)
 frame_jeu = tk.Frame(groot, width = dimension[0], height = dimension[0]*9/16)
 frame_jeu.grid_propagate(0)
 
-partie = j.Jeu(frame_jeu)
-
-
 
 
 """
 ////////////////////////////////////////trame du jeu/////////////////////////////////////////
 """
+
+partie = j.Jeu(frame_jeu, fin_du_game)
 
 frame_principale.pack()
 
