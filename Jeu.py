@@ -4,7 +4,7 @@ from PIL import Image
 import Super_ad as ad
 import Vaisseau as v
 import Alien as a
-import Ilots as i
+import Ilots as il
 
 
 class Jeu():
@@ -22,6 +22,11 @@ class Jeu():
             self.window.after(i*dt, lambda : ad.Super_ad.list_alien.append(a.Alien()))
 
 
+    def make_wall(self, nb, ec):
+        #permet de créer les murs
+        for i in range(nb):
+            il.Ilots().pox += ec
+            self.window(ad.Super_ad.list_bloc.append(il.Ilots()))
 
 
     def run(self):
@@ -33,7 +38,9 @@ class Jeu():
         self.make_alien(20, 300)
         self.tac()
         #creation des blocs
-        ad.Super_ad.mur = i.Ilots()
+        ad.Super_ad.mur = il.Ilots()
+        #self.make_wall(3, 10)
+
 
 
 

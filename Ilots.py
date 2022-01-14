@@ -7,9 +7,11 @@ import Laser as l
 class Ilots(ad.Super_ad):
     def __init__(self):
         self.nb_vies = 1
-        self.pox = 20
-        self.poy = 94
-        self.nb = 3
+        self.pox = 10
+        self.poy = 80
+        self.nb = 2
+
+        self.lst_bloc= []
 
         self.reload = True
 
@@ -33,7 +35,21 @@ class Ilots(ad.Super_ad):
 
     def update(self):
         ad.Super_ad.update(self, self.imageV, self.pox, self.poy)
+
+
+    def hit(self, damage):
+        print("pan")
+        self.nb_vies -= damage
+        if self.nb_vies <= 0:
+            self.delete()
+
+    def delete(self):
+        ad.Super_ad.canvas.delete(self.sprite)
         
+        
+    
+    
+    
 
 #lst_alien = []
 
@@ -44,11 +60,12 @@ class Ilots(ad.Super_ad):
 
 
     def dessin(self):
-        lst_bloc= []
         
         for i in range(self.nb):
-            self.pox += 10
-            lst_bloc.append(self.sprite)
+            self.pox += 20
+            self.lst_bloc.append(Ilots)
+            ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "")
 
+           
 
 

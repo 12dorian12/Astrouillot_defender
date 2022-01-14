@@ -1,5 +1,6 @@
 import Super_ad as ad
 from PIL import Image, ImageTk
+import Alien as a
 
 import Laser as l
 
@@ -69,6 +70,14 @@ class Vaisseau(ad.Super_ad):
     def reloading(self):
         self.reload = True
 
+    def delete(self):
+        ad.Super_ad.canvas.delete(self.sprite)
+        
+    def perdre (self):
+        if a.Alien.poy > 80:
+            self.delete()
+            print("perdu")
+
     def tic(self):
         if self.is_mooving == "Left":
             self.pox -= self.vitesse
@@ -79,8 +88,11 @@ class Vaisseau(ad.Super_ad):
             if self.pox > 97:
                 self.pox = 97
         self.update()
-        
-        
+
+    
+
+
+    
 
 
 

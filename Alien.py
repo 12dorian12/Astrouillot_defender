@@ -37,6 +37,7 @@ class Alien(ad.Super_ad):
         if self.pox < 1:
             self.vitesse = -self.vitesse
             self.poy += self.gap
+    
 
     def hit(self, damage):
         print("pan")
