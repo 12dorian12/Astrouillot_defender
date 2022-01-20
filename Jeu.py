@@ -26,11 +26,9 @@ class Jeu():
 
 
     def make_wall(self, nb, ec):
-        #permet de creer les murs
+    #permet de creer les murs
         for i in range(nb):
             ad.Super_ad.list_bloc.append(il.Ilots((i+1)*ec))
-            il.Ilots().pox += ec
-            self.window(ad.Super_ad.list_bloc.append(il.Ilots()))
 
 
     def run(self):
@@ -40,10 +38,10 @@ class Jeu():
         ad.Super_ad.joueur = v.Vaisseau()
         #creation d'aliens
         self.make_alien(20, 300)
-        self.tac()
         #creation des blocs
         self.make_wall(10, 5)
 
+        self.tac()
 
 
     def end_game(self, victory):
@@ -104,5 +102,4 @@ class Jeu():
             self.end_game(True) """
 
         self.colision()
-
         self.window.after(26, self.tac)
