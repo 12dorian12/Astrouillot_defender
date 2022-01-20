@@ -9,7 +9,7 @@ from PIL import Image, ImageTk
 """
 def niveau1():
     frame_niveau.pack_forget()
-    partie.run()
+    partie.run(0,1) 
     frame_jeu.pack()
 
 def jouer():
@@ -83,6 +83,14 @@ tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2)
 """
 frame_jeu = tk.Frame(groot, bg = "black", width = dimension[0], height = dimension[0]*3/4)
 frame_jeu.grid_propagate(0)
+
+label_score = tk.Label(frame_jeu, text="Score")
+label_score.grid(row= 0, column=0)
+label_vie = tk.Label(frame_jeu, text= "Vie restante")
+label_vie.grid(row= 0, column=3)
+
+
+
 
 
 
