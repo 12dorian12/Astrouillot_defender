@@ -10,12 +10,10 @@ import Ilots as il
 class Jeu():
     def __init__(self, window, ayer_finit, dimention):
         self.window = window
-        self.window.grid_columnconfigure((0,1,2), weight=1)
-
         self.ayer_finit = ayer_finit
 
         #initialisation de Super_ad
-        self.heart = ad.Super_ad(self.window, dimention, ad.Super_ad.image_data_fond1 )
+        self.heart = ad.Super_ad(self.window, dimention, ad.Super_ad.image_data_fond1)
 
 
 
@@ -31,9 +29,9 @@ class Jeu():
             ad.Super_ad.list_bloc.append(il.Ilots((i+1)*ec))
 
 
-    def run(self):
+    def run(self, ro, col):
     #permet de lancer le jeu
-        ad.Super_ad.canvas.grid(column=1)#fill="both", expand="yes"
+        ad.Super_ad.canvas.grid(row = ro, column=col)
         #creation du joueur
         ad.Super_ad.joueur = v.Vaisseau()
         #creation d'aliens
