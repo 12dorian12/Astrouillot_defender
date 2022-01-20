@@ -9,7 +9,7 @@
             "name": "Python : Fichier actuel",
             "type": "python",
             "request": "launch",
-            "program": "mainD.py",//"page_princ.py", //"${file}",
+            "program": "page_princ.py", //"${file}","mainD.py",//
             "console": "integratedTerminal"
         }
     ]
