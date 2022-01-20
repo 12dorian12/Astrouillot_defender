@@ -1,4 +1,3 @@
-from operator import length_hint
 import tkinter as tk
 from PIL import Image
 
@@ -9,12 +8,14 @@ import Ilots as il
 
 
 class Jeu():
-    def __init__(self, window, ayer_finit):
+    def __init__(self, window, ayer_finit, dimention):
         self.window = window
+        self.window.grid_columnconfigure((0,1,2), weight=1)
+
         self.ayer_finit = ayer_finit
 
         #initialisation de Super_ad
-        self.heart = ad.Super_ad(self.window, 500,ad.Super_ad.image_data_fond1 )
+        self.heart = ad.Super_ad(self.window, dimention, ad.Super_ad.image_data_fond1 )
 
 
 
@@ -27,18 +28,18 @@ class Jeu():
     def make_wall(self, nb, ec):
     #permet de creer les murs
         for i in range(nb):
-            ad.Super_ad.list_bloc.append(il.Ilots(i*ec))
+            ad.Super_ad.list_bloc.append(il.Ilots((i+1)*ec))
 
 
     def run(self):
     #permet de lancer le jeu
-        ad.Super_ad.canvas.pack()#fill="both", expand="yes"
+        ad.Super_ad.canvas.grid(column=1)#fill="both", expand="yes"
         #creation du joueur
         ad.Super_ad.joueur = v.Vaisseau()
         #creation d'aliens
         self.make_alien(20, 300)
         #creation des blocs
-        self.make_wall(4, 5)
+        self.make_wall(10, 5)
 
         self.tac()
 
@@ -56,6 +57,7 @@ class Jeu():
             i.delete()
         for i in ad.Super_ad.list_laser : 
             i.delete()
+        ad.Super_ad.joueur.delete()
 
 
     def distance_eclidienne(self, x1, y1, x2, y2):
@@ -78,6 +80,13 @@ class Jeu():
                     ad.Super_ad.joueur.hit(laser.force)
                     laser.delete()
 
+        for alien in ad.Super_ad.list_alien:
+            for bloc in ad.Super_ad.list_bloc:
+                if self.distance_eclidienne(alien.pox, alien.poy, bloc.pox, bloc.poy) <= 5:
+                    tmp = bloc.nb_vies #sinon le nb de point de vie diminue une fois le hit effectuer
+                    bloc.hit(alien.nb_vies)
+                    alien.hit(tmp)
+
 
     def tac(self):
     #Tac est une horloge globale, elle apelle la fonction tic de chaque objet 60 fois par seconde
@@ -88,10 +97,9 @@ class Jeu():
 
         for tir in ad.Super_ad.list_laser : 
             tir.tic()
-
-        self.window.after(26, self.tac)
+        
+        """ if len(ad.Super_ad.list_alien) == 0:
+            self.end_game(True) """
 
         self.colision()
-
-        if len(ad.Super_ad.list_alien) == 0:
-            self.end_game(True)
+        self.window.after(26, self.tac)

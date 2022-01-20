@@ -81,7 +81,7 @@ tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2)
 """
 ///////////////////////////////////////////Page jouer////////////////////////////////////////////
 """
-frame_jeu = tk.Frame(groot, width = dimension[0], height = dimension[0]*9/16)
+frame_jeu = tk.Frame(groot, bg = "black", width = dimension[0], height = dimension[0]*3/4)
 frame_jeu.grid_propagate(0)
 
 
@@ -90,7 +90,7 @@ frame_jeu.grid_propagate(0)
 ////////////////////////////////////////trame du jeu/////////////////////////////////////////
 """
 
-partie = j.Jeu(frame_jeu, fin_du_game)
+partie = j.Jeu(frame_jeu, fin_du_game, int(dimension[0]*3/4*9/16))
 
 frame_principale.pack()
 
