@@ -1,3 +1,4 @@
+from distutils import command
 import tkinter as tk
 import Jeu as j
 from PIL import Image, ImageTk
@@ -18,6 +19,14 @@ def jouer():
 
 def fin_du_game(victory):
     print("oooocccc")
+
+
+def ajout_point(point):
+    label_score.configure("Vie restantes:"+point)
+
+
+def vie(vie): 
+    label_vie.configure(text = "Vie restantes:"+vie)
 
 
 """
@@ -84,10 +93,16 @@ tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2)
 frame_jeu = tk.Frame(groot, bg = "black", width = dimension[0], height = dimension[0]*3/4)
 frame_jeu.grid_propagate(0)
 
+frame_jeu.grid_columnconfigure((0,1, 2), weight=1, minsize=frame_jeu.winfo_height()/3)
+
 label_score = tk.Label(frame_jeu, text="Score")
 label_score.grid(row= 0, column=0)
 label_vie = tk.Label(frame_jeu, text= "Vie restante")
-label_vie.grid(row= 0, column=3)
+label_vie.grid(row= 0, column=2)
+tk.Button(frame_niveau, text="Niveau facile", command= niveau1).grid(row=1, column = 2 )
+tk.Button(frame_niveau, text="Niveau moyen", command= niveau1).grid(row=1, column= 2)
+tk.Button(frame_niveau, text="Niveau difficile", command= niveau1).grid(row=2, column=2)
+
 
 
 
