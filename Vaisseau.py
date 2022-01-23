@@ -1,3 +1,10 @@
+"""
+objectif : cree la class Vaisseau.
+Dates : 17 decembre
+fait par : Lea Dorian
+Todo : 
+"""
+
 import Super_ad as ad
 from PIL import Image, ImageTk
 import Alien as a
@@ -19,27 +26,20 @@ class Vaisseau(ad.Super_ad):
         self.is_mooving = False
 
         self.image_data = ad.Super_ad.image_data_vaisseau
-        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "") #on definit l'image avec update dans resize
-        self.resize()
+        self.resize(10, 10)  # definit self.image
+        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = self.image)
+        self.update(self.image, self.pox, self.poy)
 
 
         ############################# Binding #############################
-        ad.Super_ad.canvas.bind("<Configure>", self.resize, add = "+")
         ad.Super_ad.canvas.bind_all("<KeyPress>", self.key_down, add = "+")
         ad.Super_ad.canvas.bind_all("<KeyRelease>", self.key_up, add = "+")
 
-    def resize(self, *e):
-        """
-        fonction qui s'appelle a chaque modification de la  taille du canvas
-        """
-        self.resize_img = self.image_data.resize((self.vw(10)+1, self.vw(10)+1), Image.ANTIALIAS)
-        self.imageV = ImageTk.PhotoImage(self.resize_img)
-        self.update()
-
-    def update(self):
-        ad.Super_ad.update(self, self.imageV, self.pox, self.poy)
-        
     def key_down(self,e):
+        """ 
+        permet de definir la direction du vaisseau selon la touche appuier
+        *** e : objet de type evenement fournit par les event de tkinter
+        """
         if e.keysym == "Left" or e.keysym == "q":
             self.is_mooving = "Left"
         if e.keysym == "Right" or e.keysym == "d":
@@ -49,7 +49,8 @@ class Vaisseau(ad.Super_ad):
     
     def key_up(self,e):
         """
-        c pou le peti bug mesie
+        permet de rendre le vaisseau statique quand il ne bouge les touche son relever
+        *** e : objet de type evenement fournit par les event de tkinter
         """
         if e.keysym == "Left" or e.keysym == "q":
             if self.is_mooving == "Left":
@@ -59,26 +60,46 @@ class Vaisseau(ad.Super_ad):
                 self.is_mooving = False
 
     def tire(self):
+        """ 
+        permet de tirer un laser
+        """
         if self.reload:
             self.reload = False
-            ad.Super_ad.list_laser.append(l.Laser(self.pox, -self.vitesse_tire, self.force, ad.Super_ad.list_alien))
+            ad.Super_ad.list_laser.append(l.Laser(self.pox, 90, -self.vitesse_tire, self.force))
             ad.Super_ad.canvas.after(self.temp_de_recharge, self.reloading)
 
-    def hit(self):
-        print("ouille")
-
     def reloading(self):
+        """ 
+        permet de recharger
+        """
         self.reload = True
 
-    def delete(self):
-        ad.Super_ad.canvas.delete(self.sprite)
-        
-    def perdre (self):
-        if a.Alien.poy > 80:
+    def hit(self, damage):
+        """
+        fonction qui appeler lors d'une collision
+        *** damage : un entier qui represente les point de vie a perdre
+        """
+        self.nb_vies -= damage
+        if self.nb_vies <= 0:
             self.delete()
-            print("perdu")
+            return True
+        return False
+
+    def delete(self):
+        """
+        permet la supression sur le canvas est dans super_ad
+        permet de unbind les evenement liee au touche
+        """
+        ad.Super_ad.canvas.delete(self.sprite)
+        ad.Super_ad.joueur = None
+        ad.Super_ad.canvas.unbind_all("<KeyPress>")
+        ad.Super_ad.canvas.unbind_all("<KeyRelease>")
 
     def tic(self):
+        """
+        fonction qui ce fait appeler par tac de jeu, elle fait evoluer l'objet dans le temps
+        le deplacement est geree ici et selon la direction
+        """
         if self.is_mooving == "Left":
             self.pox -= self.vitesse
             if self.pox < 3:
@@ -87,17 +108,4 @@ class Vaisseau(ad.Super_ad):
             self.pox += self.vitesse
             if self.pox > 97:
                 self.pox = 97
-        self.update()
-
-    
-
-
-    
-
-
-
-
-        
-        
-    
-    
+        self.update(self.image, self.pox, self.poy)

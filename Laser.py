@@ -1,53 +1,55 @@
+"""
+objectif : cree la class Laser.
+Dates : 17 decembre
+fait par : Lea Dorian
+Todo : 
+"""
+
 import Super_ad as ad
 from PIL import Image, ImageTk
 import  Vaisseau as v
 
 class Laser(ad.Super_ad):
     """
-    class qui cree des laser
-    le laser test les colision avec le joueur ou les alien
+    class qui cree des laser utiliser par les alien et le vaisseau
+    la vitesse est soit positive si il vient d'un alien, ou vegative si il vient du vaisseau
     """
-    def __init__(self, x, vitesse, force, enemie):
-        # on cree une liste d'enemie pour gerer la colision de la meme facon qu'il y ai un seul ou plusieur enemies
-        if type(enemie) == list:
-            self.list_enemie = enemie
-        else:
-            self.list_enemie = [enemie]
-
+    def __init__(self, x, y, vitesse, force):
+        """
+        *** x : entier represente la position horizontale en pourcent
+        *** y : entier represente la position verticale en pourcent
+        *** vitesse : entier represente la vitesse de mouvement a chaque tic
+        *** force : entier represente les degat a appliquer
+        """
         self.pox = x
-        self.poy = 90
+        self.poy = y
         self.size = 10
         self.vitesse = vitesse
         self.force = force
 
         self.image_data = ad.Super_ad.image_data_laser
-        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = "") #on definit l'image avec update dans resize
-        self.resize()
-
-        ############################# Binding #############################
-        ad.Super_ad.canvas.bind("<Configure>", self.resize, add = "+")
-
-    def resize(self, *e):
-        """
-        fonction qui s'appelle a chaque modification de la  taille du canvas
-        """
-        self.resize_image = self.image_data.resize((int(self.vw(self.size)/2.62+1), self.vw(self.size)+1), Image.ANTIALIAS)
-        self.imageL = ImageTk.PhotoImage(self.resize_image)
-        self.update()
-
-    def update(self):
-        ad.Super_ad.update(self, self.imageL, self.pox, self.poy)
+        self.resize(10,10,2.62) #definit self.image
+        self.sprite = ad.Super_ad.canvas.create_image(self.vw(self.pox), self.vh(self.poy), image = self.image)
+        self.update(self.image, self.pox, self.poy)
 
     def move(self):
+        """
+        on modifie la position du laser selon ca vitesse et on update
+        """
         self.poy += self.vitesse
-        """self.colision()"""
-        if self.poy <= 0 :
+        if self.poy <= 0 or self.pox >100:
             self.delete()
 
     def delete(self):
+        """
+        permet la supression sur le canvas est dans super_ad
+        """
         ad.Super_ad.canvas.delete(self.sprite)
         ad.Super_ad.list_laser.remove(self)
 
     def tic(self):
+        """
+        fonction qui ce fait appeler par tac de jeu, elle fait evoluer l'objet dans le temps
+        """
         self.move()
-        self.update()
+        self.update(self.image, self.pox, self.poy)

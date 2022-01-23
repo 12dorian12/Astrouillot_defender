@@ -1,3 +1,10 @@
+"""
+objectif : cree la super class Super_ad.
+Dates : 17 decembre
+fait par : Lea Dorian
+Todo : transferer les fonction de delete a cette super class
+"""
+
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -25,12 +32,8 @@ class Super_ad():
     
     
 
-    def __init__(self, window, w, fond):
-        #creation du canvas principal
-        Super_ad.canvas = tk.Canvas(window, bg="black", width=int(w), height=int(w*(16/9)))
-        self.resize_bg = fond.resize((int(w*(16/9)**2), int(w*(16/9))), Image.ANTIALIAS)
-        self.bg = ImageTk.PhotoImage(self.resize_bg)
-        self.can_bg = Super_ad.canvas.create_image(-w/1.25,0, anchor= tk.NW, image = self.bg)
+    def __init__(self):
+        self.image_data = None
 
     def vw(self, x):
         #retourne la postion en px sur le canvas a partir d'un pourcentage sur la largeur
@@ -43,6 +46,12 @@ class Super_ad():
         return ((x1-x2)**2 + (y1-y2)**2)**(1/2)
 
 
+    def resize(self, x, y, ratio = 1):
+        """
+        fonction qui s'appelle a chaque modification de la  taille du canvas
+        """
+        self.resize_image = self.image_data.resize((int(self.vw(x)/ratio+1), self.vw(y)+1), Image.ANTIALIAS)
+        self.image = ImageTk.PhotoImage(self.resize_image)
 
     def update(self, img, pox, poy):
         #update le canvas
